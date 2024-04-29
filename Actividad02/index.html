@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DEMO de registro de vuelo del pasajero</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.css">
+    <link rel="stylesheet" href="./css/stilo.css">
+</head>
+<body>
+<!-- CAMBIOS QUE SE HICE EN EL HTML -->
+<!-- separar las lineas de codigo de javascript y css, creando una carpeta para cada uno -->
+<!-- cambios de las preguntas como el nombre completo,C.I.,aerolinea, departamento de salida y de llegada y tambien la fecha de salida y de regreso -->
+<!-- se desativo el php para registrar el formulario -->
+<!-- se agrego una tabla de registro -->
+<!-- se puede eliminar el ultimo registro -->
+<div class="container">
+    <div class="margin-t-md">
+        <div class="customer-form">
+            <div class="card">
+                <h3>Registro De Vuelo</h3>
+            </div>
+
+            <form method="post" role="form" autocomplete="off">
+                <div class="card">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="customer-first_name">Nombre Completo</label>
+                            <input type="text" id="customer-first_name" class="form-control" name="Customer[first_name]"
+                            maxlength="32" aria-required="true" oninput="validarNombre(this)">
+                            <p id="nombre-error" class="help-block help-block-error"></p>
+
+                            <p class="help-block help-block-error"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label class="control-label" for="customer-last_name">C.I.</label>
+                            <input type="text" id="customer-last_name" class="form-control" name="Customer[last_name]"
+                                maxlength="64" aria-required="true" oninput="validarCI(this)">
+                            <p id="ci-error" class="help-block help-block-error"></p>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="customer-email">Email</label>
+                            <input type="text" id="customer-email" class="form-control" name="Customer[email]" maxlength="32" aria-required="true" oninput="validarEmail(this)">
+                            <p id="email-error" class="help-block help-block-error"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="customer-dob">Fecha de Nacimiento</label>
+                            <div class="input-group">
+                                <input type="text" id="customer-dob" class="form-control datepicker" name="Customer[dob]">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+                <div id="main-container">
+                    <div class="panel card container-item">
+                        <div class="panel-body">
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="address_line_one_0">Aerolinea</label>
+                                            <select class="form-control" id="aerolineas">
+                                                <option value="BOA">Boliviana de Aviación (BoA)</option>
+                                                <option value="Amaszonas">Amaszonas</option>
+                                                <option value="Ecojet">Ecojet</option>
+                                                <option value="Boliviana de Aviación Regional">Boliviana de Aviación Regional</option>
+                                                <option value="Ecojet Express">Ecojet Express</option>
+                                                <option value="Ecojet Paraguay">Ecojet Paraguay</option>
+                                                <option value="Transporte Aéreo Militar (TAM)">Transporte Aéreo Militar (TAM)</option>
+                                                <option value="Avior Airlines">Avior Airlines</option>
+                                                <option value="LATAM Airlines">LATAM Airlines</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="state_0">Departamento De Salida</label>
+                                            <select class="form-control select2 select2-init" name="Address[0][state]" id="state_0">
+                                                <option>Chuquisaca</option>
+                                                <option>La Paz</option>
+                                                <option>Cochabamba</option>
+                                                <option>Oruro</option>
+                                                <option>Potosí</option>
+                                                <option>Tarija</option>
+                                                <option>Santa Cruz</option>
+                                                <option>Beni</option>
+                                                <option>Pando</option>
+
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="state_0">Departamento De Llegada</label>
+                                            <select class="form-control select2 select2-init" name="Address[0][state]" id="state_1">
+                                                <option>Chuquisaca</option>
+                                                <option>La Paz</option>
+                                                <option>Cochabamba</option>
+                                                <option>Oruro</option>
+                                                <option>Potosí</option>
+                                                <option>Tarija</option>
+                                                <option>Santa Cruz</option>
+                                                <option>Beni</option>
+                                                <option>Pando</option>
+
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="customer-startdate_0">Fecha de Salida</label>
+                                            <div class="input-group">
+                                                <input type="text" id="customer-startdate" class="form-control datepicker" name="Customer[startdate]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="customer-enddate_0">Fecha de regreso</label>
+                                            <div class="input-group">
+                                                <input type="text" id="customer-enddate" class="form-control datepicker" name="Customer[enddate]">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroup-sizing-default"><i class="far fa-calendar-alt"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-sm">Registrar Vuelo</button>
+                        
+
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="main-container">
+        <h1 class="col-sm-6">Tabla de Datos</h1>
+        <!-- Tabla de Datos -->
+        <table class="table table-bordered" id="tabla-datos">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre Completo</th>
+                    <th>C.I.</th>
+                    <th>Email</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Aerolínea</th>
+                    <th>Departamento de Salida</th>
+                    <th>Departamento de Llegada</th>
+                    <th>Fecha de Salida</th>
+                    <th>Fecha de Regreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se agregarán las filas con los datos ingresados -->
+                <!-- Por ahora no hay ninguna fila -->
+            </tbody>
+        </table>
+    </div>
+    <button onclick="eliminarUltimoRegistro()" class="btn btn-primary btn-sm">Eliminar Último Registro</button>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.3.2/select2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script src="cloneData.js" type="text/javascript"></script>
+<script src="./js/javascript.js">
+    
+</script>
+</body>
+</html>

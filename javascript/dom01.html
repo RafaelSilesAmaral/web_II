@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Manipulando Html con javascript</title>
+</head>
+<body>
+    <div class="content" id="content_first">
+    <p>Contenido dinamico</p>
+    </div><!-- #content_first -->
+    <div class="content" id="content_second" hidden>
+    <p>Segundo contenido</p>
+    </div><!-- #content_second -->
+    <script>
+    let body = document.getElementsByTagName("body")[0];
+    console.log(body.innerHTML);
+    //body.innerHTML="<p> Contenido borrado de body</p>";
+    let elements = document.getElementsByTagName("*");
+    for ( element of elements )
+    {
+        if ( element.id == "content_second" )
+        {
+            //element.innerHTML = "<p>segunda seccion</p>";
+            element.removeAttribute("hidden");
+        }
+    }
+    </script>
+</body>
+</html>
